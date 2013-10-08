@@ -46,6 +46,9 @@
 #define LOGV(...)
 #endif
 
+#define RELEASE_LOG(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+
+
 // for native audio
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
