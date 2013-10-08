@@ -1,29 +1,31 @@
-ifeq ("$(ROOTDIR)","")
-    LOCAL_PATH := $(call my-dir)
-else
-    LOCAL_PATH := $(ROOTDIR)
-endif
+#ifeq ("$(ROOTDIR)","")
+#    LOCAL_PATH := $(call my-dir)
+#else
+#    LOCAL_PATH := $(ROOTDIR)
+#endif
+LOCAL_PATH := $(call my-dir)
+
 
 ANALYZE      ?= no
 ANALYZE_OUTPUT?=/dev/null
 
 include $(CLEAR_VARS)
-TARGET_ARCH_ABI  ?=armeabi-v7a
+#TARGET_ARCH_ABI  ?=armeabi-v7a
 LOCAL_LDLIBS     := -llog
 LOCAL_MODULE     := openal
-LOCAL_ARM_MODE   := arm
-CLANG_VERSION    ?= 3.1
+#LOCAL_ARM_MODE   := arm
+#CLANG_VERSION    ?= 3.1
 ROOTDIR          ?= $(LOCAL_PATH)
 OPENAL_DIR       := OpenAL
 MODULE           := openal
-MODULE_DST       := obj/local/$(TARGET_ARCH_ABI)/objs/openal
-ifeq ("$(BINDIR)","")
-    BINDIR       := $(abspath $(ROOTDIR)/../obj/local/$(TARGET_ARCH_ABI)/objs/ )
-else
-    BINDIR       := $(abspath $(BINDIR) )
-endif
+#MODULE_DST       := obj/local/$(TARGET_ARCH_ABI)/objs/openal
+#ifeq ("$(BINDIR)","")
+#    BINDIR       := $(abspath $(ROOTDIR)/../obj/local/$(TARGET_ARCH_ABI)/objs/ )
+#else
+#    BINDIR       := $(abspath $(BINDIR) )
+#endif
 
-ANDROID_NDK_ROOT=/Developer/DestinyCloudFist/android-ndk-r8b
+#ANDROID_NDK_ROOT=/Developer/DestinyCloudFist/android-ndk-r8b
 
 LOCAL_CFLAGS    +=  -I$(ROOTDIR)/$(OPENAL_DIR) \
                     -I$(ROOTDIR)/$(OPENAL_DIR)/include \
@@ -83,8 +85,10 @@ LOCAL_SRC_FILES :=  \
 
 # If building for versions after FROYO
 ifeq ($(POST_FROYO), yes)
-  LOCAL_CFLAGS +=   -DPOST_FROYO -I$(ANDROID_NDK_ROOT)/platforms/android-9/arch-arm/usr/include/
-  LOCAL_LDLIBS += -ldl -L$(ANDROID_NDK_ROOT)/platforms/android-9/arch-arm/usr/lib/
+  #LOCAL_CFLAGS +=   -DPOST_FROYO -I$(ANDROID_NDK_ROOT)/platforms/android-9/arch-arm/usr/include/
+  LOCAL_CFLAGS +=   -DPOST_FROYO
+  #LOCAL_LDLIBS += -ldl -L$(ANDROID_NDK_ROOT)/platforms/android-9/arch-arm/usr/lib/
+  LOCAL_LDLIBS += -ldl 
   LOCAL_SRC_FILES += $(OPENAL_DIR)/Alc/opensles.c
 endif
 
